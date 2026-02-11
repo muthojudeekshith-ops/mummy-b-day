@@ -1,49 +1,64 @@
-// Function to create floating stars and hearts
-function createFloatingElements() {
-    const animationsDiv = document.getElementById('animations');
-    const elements = ['★', '♥']; // Star and heart symbols
-    for (let i = 0; i < 20; i++) { // Create 20 elements
-        const element = document.createElement('div');
-        element.classList.add('floating');
-        element.classList.add(elements[i % 2] === '★' ? 'star' : 'heart');
-        element.textContent = elements[i % 2];
-        element.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
-        element.style.animationDelay = Math.random() * 10 + 's'; // Random delay
-        animationsDiv.appendChild(element);
-    }
+/* 🎯 FIXED DATE – April 25 (Auto next year) */
+
+function getNextBirthday() {
+  let now = new Date();
+  let year = now.getFullYear();
+
+  let birthday = new Date(year, 3, 25); // Month 3 = April (0-based index)
+
+  // If this year's April 25 is already passed → set next year
+  if (now > birthday) {
+    birthday = new Date(year + 1, 3, 25);
+  }
+
+  return birthday.getTime();
 }
 
-// Countdown Timer Function
-function updateTimer() {
-    const targetDateInput = document.getElementById('targetDate');
-    const targetDate = new Date(targetDateInput.value).getTime();
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+let targetDate = getNextBirthday();
 
-    if (distance > 0) {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        document.getElementById('timer').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        document.getElementById('birthdayButton').style.display = 'none'; // Hide button while counting
-    } else {
-        document.getElementById('timer').innerHTML = 'Time\'s up!';
-        document.getElementById('birthdayButton').style.display = 'block'; // Show button
-    }
+/* ⏳ COUNTDOWN */
+let timer = setInterval(function(){
+
+  let now = new Date().getTime();
+  let distance = targetDate - now;
+
+  let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("countdown").innerHTML =
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+  if(distance < 0){
+    clearInterval(timer);
+    document.getElementById("countdown").style.display="none";
+    document.getElementById("birthdayBtn").style.display="block";
+  }
+
+},1000);
+
+
+/* 💖 SHOW MESSAGE */
+function showMessage(){
+  document.getElementById("screen1").style.display="none";
+  document.getElementById("screen3").style.display="flex";
 }
 
-// Event Listener for Date Change
-document.getElementById('targetDate').addEventListener('change', updateTimer);
 
-// Button Click to Show Message (Interface 3)
-document.getElementById('birthdayButton').addEventListener('click', function() {
-    document.getElementById('interface1').style.display = 'none';
-    document.getElementById('birthdayButton').style.display = 'none';
-    document.getElementById('message').style.display = 'block';
-});
+/* 🌟 Floating Stars & Hearts */
+function createFloating(){
+  let item = document.createElement("div");
+  item.classList.add("floating");
+  item.innerHTML = Math.random() > 0.5 ? "⭐" : "💖";
+  item.style.left = Math.random() * 100 + "vw";
+  item.style.fontSize = (15 + Math.random() * 25) + "px";
+  item.style.animationDuration = (5 + Math.random() * 5) + "s";
+  document.body.appendChild(item);
 
-// Initialize
-createFloatingElements();
-updateTimer();
-setInterval(updateTimer, 1000); // Update timer every second
+  setTimeout(()=>{
+    item.remove();
+  },10000);
+}
+
+setInterval(createFloating, 500);
