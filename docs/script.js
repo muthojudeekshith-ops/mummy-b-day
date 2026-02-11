@@ -37,7 +37,8 @@ function createFloating(){
   item.style.left = Math.random() * 100 + "vw";
   item.style.fontSize = (15 + Math.random() * 25) + "px";
   item.style.animationDuration = (5 + Math.random() * 5) + "s";
-  document.body.appendChild(item);
+  document.getElementById("floatingContainer").appendChild(item);
+
 
   setTimeout(()=>{
     item.remove();
