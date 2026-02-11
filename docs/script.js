@@ -1,20 +1,5 @@
-/* 🎯 FIXED DATE – April 25 (Auto next year) */
-
-function getNextBirthday() {
-  let now = new Date();
-  let year = now.getFullYear();
-
-  let birthday = new Date(year, 3, 25); // Month 3 = April (0-based index)
-
-  // If this year's April 25 is already passed → set next year
-  if (now > birthday) {
-    birthday = new Date(year + 1, 3, 25);
-  }
-
-  return birthday.getTime();
-}
-
-let targetDate = getNextBirthday();
+/* 🎯 TARGET DATE (Change anytime here) */
+let targetDate = new Date("April 25, 2026 00:00:00").getTime();
 
 /* ⏳ COUNTDOWN */
 let timer = setInterval(function(){
@@ -38,15 +23,13 @@ let timer = setInterval(function(){
 
 },1000);
 
-
-/* 💖 SHOW MESSAGE */
+/* 💖 SHOW MESSAGE SCREEN */
 function showMessage(){
   document.getElementById("screen1").style.display="none";
   document.getElementById("screen3").style.display="flex";
 }
 
-
-/* 🌟 Floating Stars & Hearts */
+/* 🌟 Floating stars & hearts */
 function createFloating(){
   let item = document.createElement("div");
   item.classList.add("floating");
