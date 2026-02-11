@@ -1,5 +1,5 @@
 /* 🎯 TARGET DATE (Change anytime here) */
-let targetDate = new Date("April 25, 2026 00:00:00").getTime();
+let targetDate = new Date("January 25, 2026 00:00:00").getTime();
 
 /* ⏳ COUNTDOWN */
 let timer = setInterval(function(){
