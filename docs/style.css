@@ -13,8 +13,8 @@ body {
     margin: 0 auto;
 }
 .timer {
-    font-size: 2em;
-    margin: 20px 0;
+    font-size: 12em;
+    margin: 60px 0;
 }
 .date-picker {
     margin-bottom: 20px;
@@ -55,4 +55,7 @@ body {
 @keyframes float {
     0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
     100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+#targetDate {
+  pointer-events: none;
 }
